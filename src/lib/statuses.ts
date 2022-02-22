@@ -33,8 +33,6 @@ export const getStatuses = (
 export const getGuessStatuses = (guess: string): CharStatus[] => {
   const splitSolution = unicodeSplitFill(solution)
   const splitGuess = unicodeSplitFill(guess)
-  console.log('splitSolution', splitSolution)
-  console.log('splitGuess', splitGuess)
 
   const solutionCharsTaken = splitSolution.map((_) => false)
 
