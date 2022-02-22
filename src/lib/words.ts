@@ -3,12 +3,14 @@ import { VALID_GUESSES } from '../constants/validGuesses'
 import { WRONG_SPOT_MESSAGE, NOT_CONTAINED_MESSAGE } from '../constants/strings'
 import { getGuessStatuses } from './statuses'
 import { default as GraphemeSplitter } from 'grapheme-splitter'
+import { MAX_WORD_LENGTH } from '../constants/settings'
 
 export const isWordInWordList = (word: string) => {
-  return (
-    WORDS.includes(localeAwareLowerCase(word)) ||
-    VALID_GUESSES.includes(localeAwareLowerCase(word))
-  )
+  return true
+  // return (
+  //   WORDS.includes(localeAwareLowerCase(word)) ||
+  //   VALID_GUESSES.includes(localeAwareLowerCase(word))
+  // )
 }
 
 export const isWinningWord = (word: string) => {
@@ -52,6 +54,11 @@ export const findFirstUnusedReveal = (word: string, guesses: string[]) => {
   return false
 }
 
+export const unicodeSplitFill = (word: string) => {
+  const split = unicodeSplit(word)
+  return split.concat(Array(MAX_WORD_LENGTH - split.length).fill(' '))
+}
+
 export const unicodeSplit = (word: string) => {
   return new GraphemeSplitter().splitGraphemes(word)
 }
@@ -73,8 +80,8 @@ export const localeAwareUpperCase = (text: string) => {
 }
 
 export const getWordOfDay = () => {
-  // January 1, 2022 Game Epoch
-  const epochMs = new Date('January 1, 2022 00:00:00').valueOf()
+  // February 22, 2022 Game Epoch
+  const epochMs = new Date('February 22, 2022 00:00:00').valueOf()
   const now = Date.now()
   const msInDay = 86400000
   const index = Math.floor((now - epochMs) / msInDay)

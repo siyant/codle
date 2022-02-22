@@ -24,6 +24,7 @@ import {
   REVEAL_TIME_MS,
   GAME_LOST_INFO_DELAY,
   WELCOME_INFO_MODAL_MS,
+  MIN_WORD_LENGTH,
 } from './constants/settings'
 import {
   isWordInWordList,
@@ -187,7 +188,7 @@ function App() {
       return
     }
 
-    if (!(unicodeLength(currentGuess) === MAX_WORD_LENGTH)) {
+    if (unicodeLength(currentGuess) < MIN_WORD_LENGTH) {
       setCurrentRowClass('jiggle')
       return showErrorAlert(NOT_ENOUGH_LETTERS_MESSAGE, {
         onClose: clearCurrentRowClass,
@@ -221,11 +222,7 @@ function App() {
 
     const winningWord = isWinningWord(currentGuess)
 
-    if (
-      unicodeLength(currentGuess) === MAX_WORD_LENGTH &&
-      guesses.length < MAX_CHALLENGES &&
-      !isGameWon
-    ) {
+    if (guesses.length < MAX_CHALLENGES && !isGameWon) {
       setGuesses([...guesses, currentGuess])
       setCurrentGuess('')
 
@@ -246,8 +243,8 @@ function App() {
   }
 
   return (
-    <div className="pt-2 pb-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div className="flex w-80 mx-auto items-center mb-8 mt-20">
+    <div className="pt-2 pb-8 max-w-7xl mx-auto sm:px-6 lg:px-8 min-w-[360px]">
+      <div className="flex w-80 mx-auto items-center mb-8 mt-8">
         <h1 className="text-xl ml-2.5 grow font-bold dark:text-white">
           {GAME_TITLE}
         </h1>

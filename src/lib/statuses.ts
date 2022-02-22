@@ -1,4 +1,4 @@
-import { solution, unicodeSplit } from './words'
+import { solution, unicodeSplit, unicodeSplitFill } from './words'
 
 export type CharStatus = 'absent' | 'present' | 'correct'
 
@@ -31,8 +31,10 @@ export const getStatuses = (
 }
 
 export const getGuessStatuses = (guess: string): CharStatus[] => {
-  const splitSolution = unicodeSplit(solution)
-  const splitGuess = unicodeSplit(guess)
+  const splitSolution = unicodeSplitFill(solution)
+  const splitGuess = unicodeSplitFill(guess)
+  console.log('splitSolution', splitSolution)
+  console.log('splitGuess', splitGuess)
 
   const solutionCharsTaken = splitSolution.map((_) => false)
 
